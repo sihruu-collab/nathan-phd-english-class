@@ -1109,6 +1109,19 @@ img {
   padding-top: 20px;
   color: #74869e;
   font-size: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: space-between;
+}
+
+.footer-legal-links a {
+  color: #74869e;
+  text-decoration: none;
+}
+
+.footer-legal-links a:hover {
+  color: var(--color-gold-light);
 }
 
 /* Checkout */
