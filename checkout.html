@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예약 & 결제 | 네이슨박사님 영어 클래스</title>
+<meta name="description" content="네이슨박사님 영어 클래스 수업 예약 및 결제 (카드, 카카오페이, 네이버페이, 토스페이).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://js.tosspayments.com/v2/standard"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span>미국 문학 박사(Ph.D.)와 함께하는 1:1 맞춤 영어 수업</span>
+    <span class="gold">화상 수업 · 전국 어디서나</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 2L32 7.5V17C32 25.5 26 30.8 18 34C10 30.8 4 25.5 4 17V7.5L18 2Z" fill="#0b2545" stroke="#b3893f" stroke-width="1.4"/>
+        <text x="18" y="23" text-anchor="middle" font-family="Noto Serif KR, serif" font-size="15" font-weight="700" fill="#d9b876">N</text>
+      </svg>
+      <span class="brand-text">네이슨박사님 영어 클래스<span class="accent">DR. NATHAN'S ENGLISH CLASS</span></span>
+    </a>
+    <button class="nav-toggle" aria-label="메뉴 열기">&#9776;</button>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">홈</a></li>
+        <li><a href="about.html">강사 소개</a></li>
+        <li><a href="curriculum.html">커리큘럼</a></li>
+        <li><a href="pricing.html">수업 &amp; 가격</a></li>
+        <li><a href="calendar.html">학기 일정</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a href="reservation.html" class="btn btn-primary">예약하기</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero-sub">
+    <div class="container">
+      <span class="eyebrow">CHECKOUT</span>
+      <h1>예약 &amp; 결제</h1>
+      <p>수업과 패키지를 선택하고 결제를 완료하면 예약이 접수됩니다. 정확한 수업 일정은 결제 후 입력하신 연락처로 안내해 드립니다.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <form id="checkout-form" class="checkout-grid" novalidate>
+
+        <div class="checkout-card">
+          <h3 style="margin-bottom:22px;">예약 정보 입력</h3>
+
+          <div class="form-group">
+            <label for="service-select">수업 선택</label>
+            <select id="service-select" required>
+              <option value="conversation">회화 수업</option>
+              <option value="writing">작문 &amp; 에세이 코칭</option>
+              <option value="literature">문학 &amp; 정독 세미나</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="package-select">구성 선택</label>
+            <select id="package-select" required></select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="preferred-date">희망 날짜</label>
+              <input type="date" id="preferred-date" required>
+            </div>
+            <div class="form-group">
+              <label for="preferred-time">희망 시간대</label>
+              <select id="preferred-time" required>
+                <option value="오전 (9시~12시)">오전 (9시~12시)</option>
+                <option value="오후 (1시~5시)">오후 (1시~5시)</option>
+                <option value="저녁 (6시~9시)">저녁 (6시~9시)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-name">이름</label>
+            <input type="text" id="customer-name" autocomplete="name" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="customer-phone">연락처</label>
+              <input type="tel" id="customer-phone" placeholder="010-0000-0000" autocomplete="tel" required>
+            </div>
+            <div class="form-group">
+              <label for="customer-email">이메일</label>
+              <input type="email" id="customer-email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <p style="color:var(--color-text-muted); font-size:0.86rem;">
+            희망하시는 날짜/시간은 예약 확정을 위한 참고용이며, 결제 완료 후 강사가 연락처로 정확한 일정을 확인해 드립니다.
+          </p>
+        </div>
+
+        <div class="checkout-card checkout-summary">
+          <h3 style="margin-bottom:18px;">결제 정보</h3>
+          <div class="summary-row">
+            <span id="summary-label">-</span>
+          </div>
+          <div class="summary-total">
+            <span>결제 금액</span>
+            <span class="amount" id="summary-amount">0원</span>
+          </div>
+
+          <div id="payment-method"></div>
+          <div id="agreement"></div>
+
+          <button type="button" id="pay-button" class="btn btn-primary">결제하기</button>
+          <p class="checkout-error" id="checkout-error"></p>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <span class="brand-text">네이슨박사님 영어 클래스<span class="accent">DR. NATHAN'S ENGLISH CLASS</span></span>
+        <p>서강대학교 영문학 박사와 함께하는 1:1 맞춤 화상 영어 수업. 회화, 작문 &amp; 에세이, 문학까지.</p>
+      </div>
+      <div class="footer-col">
+        <h5>바로가기</h5>
+        <ul>
+          <li><a href="index.html">홈</a></li>
+          <li><a href="about.html">강사 소개</a></li>
+          <li><a href="curriculum.html">커리큘럼</a></li>
+          <li><a href="pricing.html">수업 &amp; 가격</a></li>
+          <li><a href="calendar.html">학기 일정</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>문의</h5>
+        <ul>
+          <li><a href="reservation.html">예약하기</a></li>
+          <li><a href="reservation.html">카카오톡 채널 (준비 중)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ⓒ 2026 네이슨박사님 영어 클래스. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>
