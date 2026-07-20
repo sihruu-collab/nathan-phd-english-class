@@ -7,28 +7,31 @@ document.addEventListener("DOMContentLoaded", async function () {
   // then swap in your live client key once your merchant contract is approved.
   var TOSS_CLIENT_KEY = "test_ck_DLJOpm5QrlWbR2bgNlNeVPNdxbWn";
 
+  // Minimum order is 10 sessions. Single trial sessions are arranged
+  // manually via Kakao contact, not sold through this checkout.
   var PRICES = {
     conversation: {
       label: "회화 수업",
       packages: {
-        single: { label: "1회 (50분)", amount: 45000 },
         pack10: { label: "10회 패키지 (10% 할인)", amount: 405000 },
         pack20: { label: "20회 패키지 (15% 할인)", amount: 765000 },
+        pack30: { label: "30회 패키지 (20% 할인)", amount: 1080000 },
       },
     },
     writing: {
       label: "작문 & 에세이 코칭",
       packages: {
-        single: { label: "1회 (50분)", amount: 70000 },
-        pack6: { label: "대입·유학 에세이 완성 패키지 (6회)", amount: 390000 },
-        pack10: { label: "확장 패키지 (10회, 10% 할인)", amount: 630000 },
+        pack10: { label: "10회 패키지 (10% 할인)", amount: 630000 },
+        pack20: { label: "20회 패키지 (15% 할인)", amount: 1190000 },
+        pack30: { label: "30회 패키지 (20% 할인)", amount: 1680000 },
       },
     },
     literature: {
       label: "문학 & 정독 세미나",
       packages: {
-        single: { label: "1회 (50분)", amount: 60000 },
         pack10: { label: "10회 패키지 (10% 할인)", amount: 540000 },
+        pack20: { label: "20회 패키지 (15% 할인)", amount: 1020000 },
+        pack30: { label: "30회 패키지 (20% 할인)", amount: 1440000 },
       },
     },
   };
