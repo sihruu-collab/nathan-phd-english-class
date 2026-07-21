@@ -1,5 +1,10 @@
 # Setup: hosting + payments
 
+## Owner / account contact reference
+
+- Business contact (published on site): 010-3897-0201, danbee420@gmail.com
+- Personal contact (not published, for account recovery/reference only): sihruu@gmail.com
+
 This site now has a real checkout (`checkout.html`) that accepts Card, Kakao Pay,
 Naver Pay, and Toss Pay through Toss Payments' Payment Widget, plus a small
 serverless backend (`/api`) that confirms payments and a Supabase database that
