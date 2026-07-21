@@ -7,19 +7,49 @@ document.addEventListener("DOMContentLoaded", async function () {
   // then swap in your live client key once your merchant contract is approved.
   var TOSS_CLIENT_KEY = "test_ck_DLJOpm5QrlWbR2bgNlNeVPNdxbWn";
 
-  // Minimum order is 10 sessions. Single trial sessions are arranged
-  // manually via Kakao contact, not sold through this checkout.
-  var PRICES = {
+  // Top-level service -> which duration variants it offers. Only 회화 수업
+  // has a 30-minute option; the others just have the standard 1-hour format.
+  // Each duration's "key" is the PRICES lookup key sent to the server.
+  var SERVICES = {
     conversation: {
       label: "회화 수업",
+      durations: [
+        { key: "conversation", label: "1시간 수업 (50분 진행)" },
+        { key: "conversation_30min", label: "30분 수업 (25분 진행)" },
+      ],
+    },
+    writing: {
+      label: "작문 & 에세이 코칭",
+      durations: [{ key: "writing", label: "1시간 수업 (50분 진행)" }],
+    },
+    literature: {
+      label: "문학 & 정독 세미나",
+      durations: [{ key: "literature", label: "1시간 수업 (50분 진행)" }],
+    },
+  };
+
+  // Minimum order is 10 sessions. Single trial sessions are arranged
+  // manually via Kakao contact, not sold through this checkout. Keyed by
+  // duration variant key (see SERVICES above), mirroring api/_prices.js.
+  var PRICES = {
+    conversation: {
+      label: "회화 수업 · 1시간 수업 (50분 진행)",
       packages: {
         pack10: { label: "10회 패키지 (10% 할인)", amount: 405000 },
         pack20: { label: "20회 패키지 (15% 할인)", amount: 765000 },
         pack30: { label: "30회 패키지 (20% 할인)", amount: 1080000 },
       },
     },
+    conversation_30min: {
+      label: "회화 수업 · 30분 수업 (25분 진행)",
+      packages: {
+        pack10: { label: "10회 패키지 (10% 할인)", amount: 202500 },
+        pack20: { label: "20회 패키지 (15% 할인)", amount: 382500 },
+        pack30: { label: "30회 패키지 (20% 할인)", amount: 540000 },
+      },
+    },
     writing: {
-      label: "작문 & 에세이 코칭",
+      label: "작문 & 에세이 코칭 · 1시간 수업 (50분 진행)",
       packages: {
         pack10: { label: "10회 패키지 (10% 할인)", amount: 630000 },
         pack20: { label: "20회 패키지 (15% 할인)", amount: 1190000 },
@@ -27,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       },
     },
     literature: {
-      label: "문학 & 정독 세미나",
+      label: "문학 & 정독 세미나 · 1시간 수업 (50분 진행)",
       packages: {
         pack10: { label: "10회 패키지 (10% 할인)", amount: 540000 },
         pack20: { label: "20회 패키지 (15% 할인)", amount: 1020000 },
@@ -48,6 +78,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   var serviceSelect = document.getElementById("service-select");
+  var durationSelect = document.getElementById("duration-select");
   var packageSelect = document.getElementById("package-select");
   var summaryLabel = document.getElementById("summary-label");
   var summaryAmount = document.getElementById("summary-amount");
@@ -57,32 +88,44 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   var params = new URLSearchParams(window.location.search);
   var preselect = params.get("service");
-  if (preselect && PRICES[preselect]) {
+  if (preselect && SERVICES[preselect]) {
     serviceSelect.value = preselect;
   }
 
   function currentPackage() {
-    return PRICES[serviceSelect.value].packages[packageSelect.value];
+    return PRICES[durationSelect.value].packages[packageSelect.value];
+  }
+
+  function renderDurationOptions() {
+    var durations = SERVICES[serviceSelect.value].durations;
+    durationSelect.innerHTML = "";
+    durations.forEach(function (d) {
+      var opt = document.createElement("option");
+      opt.value = d.key;
+      opt.textContent = d.label;
+      durationSelect.appendChild(opt);
+    });
   }
 
   function renderPackageOptions() {
-    var service = PRICES[serviceSelect.value];
+    var priceEntry = PRICES[durationSelect.value];
     packageSelect.innerHTML = "";
-    Object.keys(service.packages).forEach(function (key) {
+    Object.keys(priceEntry.packages).forEach(function (key) {
       var opt = document.createElement("option");
       opt.value = key;
-      opt.textContent = service.packages[key].label + " - " + formatWon(service.packages[key].amount);
+      opt.textContent = priceEntry.packages[key].label + " - " + formatWon(priceEntry.packages[key].amount);
       packageSelect.appendChild(opt);
     });
   }
 
   function renderSummaryText() {
-    var service = PRICES[serviceSelect.value];
+    var priceEntry = PRICES[durationSelect.value];
     var pkg = currentPackage();
-    summaryLabel.textContent = service.label + " · " + pkg.label;
+    summaryLabel.textContent = priceEntry.label + " · " + pkg.label;
     summaryAmount.textContent = formatWon(pkg.amount);
   }
 
+  renderDurationOptions();
   renderPackageOptions();
   renderSummaryText();
 
@@ -142,6 +185,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   serviceSelect.addEventListener("change", function () {
+    renderDurationOptions();
+    renderPackageOptions();
+    handleSelectionChange();
+  });
+  durationSelect.addEventListener("change", function () {
     renderPackageOptions();
     handleSelectionChange();
   });
@@ -169,7 +217,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          service: serviceSelect.value,
+          service: durationSelect.value,
           packageKey: packageSelect.value,
           customerName: customerName,
           phone: phone,
