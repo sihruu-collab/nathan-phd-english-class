@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
   };
 
   const lookupRes = await fetch(
-    `${supabaseUrl}/rest/v1/orders?toss_order_id=eq.${encodeURIComponent(orderId)}&select=*`,
+    `${supabaseUrl}/rest/v1/orders?toss_order_id=eq.${encodeURIComponent(orderId)}&select=status,amount,package_label,customer_name,preferred_date,preferred_time`,
     { headers: supabaseHeaders }
   );
   const orders = await lookupRes.json();

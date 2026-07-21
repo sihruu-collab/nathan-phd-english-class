@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var message = params.get("message");
   var body = document.getElementById("status-body");
   if (message && body) {
-    body.textContent = decodeURIComponent(message);
+    body.textContent = message;
   }
 });

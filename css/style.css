@@ -296,20 +296,6 @@ img {
   margin: 0 0 32px;
 }
 
-.hero-navy.center {
-  text-align: center;
-}
-
-.hero-navy.center h1,
-.hero-navy.center p.lead {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-navy.center .btn-row {
-  justify-content: center;
-}
-
 .hero-sub {
   padding: 56px 0 44px;
   text-align: center;
@@ -386,15 +372,6 @@ img {
   background: var(--color-bg-alt);
 }
 
-.section-navy {
-  background: var(--color-navy);
-  color: #fff;
-}
-
-.section-navy h2, .section-navy h3, .section-navy h4 {
-  color: #fff;
-}
-
 .section-head {
   text-align: center;
   max-width: 640px;
@@ -422,12 +399,6 @@ img {
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
@@ -583,22 +554,6 @@ img {
   display: flex;
   align-items: center;
   gap: 44px;
-}
-
-.avatar-circle {
-  flex-shrink: 0;
-  width: 152px;
-  height: 152px;
-  border-radius: 50%;
-  background: linear-gradient(150deg, var(--color-navy-mid), var(--color-navy-dark));
-  border: 3px solid var(--color-gold-light);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Noto Serif KR", serif;
-  font-size: 2.8rem;
-  font-weight: 700;
 }
 
 .avatar-photo {
@@ -1313,7 +1268,7 @@ img {
 }
 
 @media (max-width: 800px) {
-  .grid-3, .grid-2, .steps {
+  .grid-3, .steps {
     grid-template-columns: 1fr;
   }
   .stats {
