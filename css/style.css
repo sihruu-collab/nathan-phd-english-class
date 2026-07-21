@@ -781,6 +781,32 @@ img {
   margin: 0;
 }
 
+/* Curriculum quick-jump nav */
+.quicknav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.quicknav a {
+  display: inline-block;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.quicknav a:hover {
+  background: var(--color-gold-bg);
+  border-color: var(--color-gold);
+}
+
 /* Curriculum track */
 .track {
   background: var(--color-card);
@@ -789,6 +815,37 @@ img {
   padding: 40px;
   margin-bottom: 32px;
   box-shadow: var(--shadow-sm);
+  scroll-margin-top: 90px;
+}
+
+.level-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.level-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--color-navy);
+  color: var(--color-gold-light);
+  font-family: "Noto Serif KR", serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 4px 16px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.level-audience {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.level-content {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  margin: 0;
 }
 
 .track-head {
@@ -811,34 +868,6 @@ img {
   color: var(--color-text-muted);
   margin: 0;
   max-width: 560px;
-}
-
-.level-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 8px;
-}
-
-.level-table th,
-.level-table td {
-  text-align: left;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.92rem;
-  vertical-align: top;
-}
-
-.level-table th {
-  color: var(--color-text-muted);
-  font-weight: 600;
-  font-size: 0.8rem;
-  background: var(--color-bg-alt);
-}
-
-.level-table td.level-name {
-  font-weight: 700;
-  color: var(--color-navy);
-  white-space: nowrap;
 }
 
 .reading-list {
@@ -1336,10 +1365,5 @@ img {
   }
   .hero-navy h1 {
     font-size: 1.9rem;
-  }
-  .level-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
   }
 }
